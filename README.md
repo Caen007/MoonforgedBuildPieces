@@ -26,7 +26,7 @@ Easy to use — just install and build!
 ## Rugs for stairs ##
 
 - They snap to the middle of the stairs, but they also have an option to snap together.
-- They work perfectly with Marble, Graustein and modded stairs, but with stone stairs they sometimes glitch through, as the stone stairs vibrate when placed and change shape. I tried to match them as much as possible to the stone stairs, but even with all these efforts they still find a corner to glitch through.
+- They work perfectly with Marble, Grausten and modded stairs, but with stone stairs they sometimes glitch through, as the stone stairs vibrate when placed and change shape. I tried to match them as much as possible to the stone stairs, but even with all these efforts they still find a corner to glitch through.
 
 ![Preview Banner](https://raw.githubusercontent.com/Caen007/MoonforgedBuildPieces/main/img/Stairs_Rugs.png)
 ---
