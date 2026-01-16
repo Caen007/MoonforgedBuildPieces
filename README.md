@@ -4,6 +4,13 @@
 
 Build a richer, more vibrant Viking home!
 
+
+## New pieces : 1.0.2
+
+
+![Preview Banner](https://raw.githubusercontent.com/Caen007/MoonforgedBuildPieces/main/img/160126.png)
+
+
 ## Moonforged Build Pieces ##
 
 - adds over 70 handcrafted decorative items to Valheim.

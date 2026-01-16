@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using Jotunn.Managers;
 using Moonforged.BuildPieces;
+using BepInEx.Configuration;
 
 namespace Moonforged.BuildPieces
 {
@@ -31,8 +32,13 @@ namespace Moonforged.BuildPieces
 
     public static class RelicRegistrar
     {
-        private static readonly List<GameObject> placedWerewolves = new(); // left harmless as requested
-        private static bool wasAlreadyRegistered = false; // HOTFIX stays untouched
+               private static bool wasAlreadyRegistered = false; // HOTFIX stays untouched
+
+        // Configurable hammer categories
+        private static SyncedConfigEntry<string> FurnitureCategoryConfig;
+        private static SyncedConfigEntry<string> BuildingCategoryConfig;
+        private static SyncedConfigEntry<string> ClutterCategoryConfig;
+        private static SyncedConfigEntry<string> StatuesCategoryConfig;
 
         public static readonly List<RelicRegistration> AllRegistrations = new()
         {
@@ -45,17 +51,17 @@ namespace Moonforged.BuildPieces
 
             // 2.
             new RelicRegistration("M_PersianRug_2","Persian Rug II", new[]{
-                new RequirementConfig("JuteBlue",4)
+                new RequirementConfig("JuteBlue",2)
             },"A custom decorative piece.","furniture"),
 
             // 3.
             new RelicRegistration("M_PersianRug_3","Persian Rug III", new[]{
-                new RequirementConfig("JuteRed",4)
+                new RequirementConfig("JuteRed",2)
             },"A custom decorative piece.","furniture"),
 
             // 4.
             new RelicRegistration("M_PersianRug_4","Regal Persian Rug", new[]{
-                new RequirementConfig("JuteRed",4), new RequirementConfig("JuteBlue",4)
+                new RequirementConfig("JuteRed",2), new RequirementConfig("JuteBlue",4)
             },"A custom decorative piece.","furniture"),
 
             // 5.
@@ -65,12 +71,12 @@ namespace Moonforged.BuildPieces
 
             // 6.
             new RelicRegistration("M_Jute_Stairs_Rug_Blue","Blue Jute Stair Rug", new[]{
-                new RequirementConfig("JuteBlue",4)
+                new RequirementConfig("JuteBlue",2)
             },"A custom decorative piece.","furniture"),
 
             // 7.
             new RelicRegistration("M_Jute_Stairs_Rug_Blue_Runed","Runed Blue Jute Stair Rug", new[]{
-                new RequirementConfig("JuteBlue",4)
+                new RequirementConfig("JuteBlue",2)
             },"A custom decorative piece.","furniture"),
 
             // 8.
@@ -184,57 +190,57 @@ namespace Moonforged.BuildPieces
 
             // 29.
             new RelicRegistration("M_Classic_Lamp","Classic Street Lamp", new[]{
-                new RequirementConfig("Iron",10), new RequirementConfig("Wood",4), new RequirementConfig("Resin",4)
+                new RequirementConfig("Iron",2), new RequirementConfig("Wood",4), new RequirementConfig("Resin",4)
             },"","building"),
 
             // 30.
             new RelicRegistration("M_Japanese_Lamp","Japanese Street Lamp", new[]{
-                new RequirementConfig("Iron",10), new RequirementConfig("Wood",4), new RequirementConfig("Resin",4)
+                new RequirementConfig("Iron",2), new RequirementConfig("Wood",4), new RequirementConfig("Resin",4)
             },"","building"),
 
             // 31.
             new RelicRegistration("M_Classic_Iron_Bench","Classic Iron Bench", new[]{
-                new RequirementConfig("Iron",10), new RequirementConfig("Wood",4)
+                new RequirementConfig("Iron",2), new RequirementConfig("Wood",4)
             },"Dvergr Forged Classic Iron Bench.","furniture"),
 
             // 32.
             new RelicRegistration("M_Classic_Double_Lamp","Classic Double Lamp", new[]{
-                new RequirementConfig("Iron",10), new RequirementConfig("Wood",4), new RequirementConfig("Resin",4)
+                new RequirementConfig("Iron",2), new RequirementConfig("Wood",4), new RequirementConfig("Resin",4)
             },"Dvergr Forged Classic Iron 2x Lamp.","building"),
 
             // 33.
             new RelicRegistration("M_Classic_Double_Lamp_2","Classic Double Lamp II", new[]{
-                new RequirementConfig("Iron",10), new RequirementConfig("Wood",4), new RequirementConfig("Resin",4)
+                new RequirementConfig("Iron",2), new RequirementConfig("Wood",4), new RequirementConfig("Resin",4)
             },"Dvergr Forged Classic Iron 2x Lamp.","building"),
 
             // 34.
             new RelicRegistration("M_classic_bin","Classic Garden Bin", new[]{
-                new RequirementConfig("Iron",10), new RequirementConfig("Wood",4)
+                new RequirementConfig("Iron",2), new RequirementConfig("Wood",4)
             },"Dvergr Forged Classic Iron Bin.","furniture"),
 
             // 35.
             new RelicRegistration("M_Classic_Single_Lamp","Classic Single Lamp", new[]{
-                new RequirementConfig("Iron",10), new RequirementConfig("Wood",4), new RequirementConfig("Resin",4)
+                new RequirementConfig("Iron",2), new RequirementConfig("Wood",4), new RequirementConfig("Resin",4)
             },"Dvergr Forged Classic Iron 1x Lamp.","building"),
 
             // 36.
             new RelicRegistration("M_Chinese_Lamp","Chinese Lamp", new[]{
-                new RequirementConfig("Iron",10), new RequirementConfig("Wood",4), new RequirementConfig("Resin",4)
+                new RequirementConfig("Iron",2), new RequirementConfig("Wood",4), new RequirementConfig("Resin",4)
             },"","building"),
 
             // 37.
             new RelicRegistration("M_classic_quad_light","Classic Quad Lamp", new[]{
-                new RequirementConfig("Iron",10), new RequirementConfig("Wood",4), new RequirementConfig("Resin",4)
+                new RequirementConfig("Iron",2), new RequirementConfig("Wood",4), new RequirementConfig("Resin",4)
             },"Dvergr Forged Classic Iron 4x Lamp.","building"),
 
             // 38.
             new RelicRegistration("M_Classic_Wall_Lamp","Classic Wall Lamp", new[]{
-                new RequirementConfig("Iron",10), new RequirementConfig("Wood",4), new RequirementConfig("Resin",4)
+                new RequirementConfig("Iron",2), new RequirementConfig("Wood",4), new RequirementConfig("Resin",4)
             },"Dvergr Forged Classic Iron Wall Lamp.","building"),
 
             // 39.
             new RelicRegistration("M_Classic_Wall_Lamp_2","Classic Wall Lamp II", new[]{
-                new RequirementConfig("Iron",10), new RequirementConfig("Wood",4), new RequirementConfig("Resin",4)
+                new RequirementConfig("Iron",2), new RequirementConfig("Wood",4), new RequirementConfig("Resin",4)
             },"Dvergr Forged Classic Iron Wall Lamp.","building"),
 
             // ---------------------- Cannons ---------------------
@@ -263,139 +269,183 @@ namespace Moonforged.BuildPieces
 
             // 44.
             new RelicRegistration("M_BrownBearMozaic","Bear Mosaic Window", new[]{
-                new RequirementConfig("Iron",10), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
+                new RequirementConfig("Iron",2), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
             },"","building"),
 
             // 45.
             new RelicRegistration("M_GreenCloverMozaic","Clover Mosaic Window", new[]{
-                new RequirementConfig("Iron",10), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
+                new RequirementConfig("Iron",2), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
             },"","building"),
 
             // 46.
             new RelicRegistration("M_CrowMozaic","Crow Mosaic Window", new[]{
-                new RequirementConfig("Iron",10), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
+                new RequirementConfig("Iron",2), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
             },"","building"),
 
             // 47.
             new RelicRegistration("M_RoundMozaic","Round Mosaic Window", new[]{
-                new RequirementConfig("Iron",10), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
+                new RequirementConfig("Iron",2), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
             },"","building"),
 
             // 48.
             new RelicRegistration("M_ChurchMozaic","Church Rose Window", new[]{
-                new RequirementConfig("Iron",10), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
+                new RequirementConfig("Iron",2), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
             },"","building"),
 
             // 49.
             new RelicRegistration("M_WorldTreeMozaic","World Tree Mosaic Window", new[]{
-                new RequirementConfig("Iron",10), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
+                new RequirementConfig("Iron",2), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
             },"","building"),
 
             // 50.
             new RelicRegistration("M_OdinMozaic","Odin Mosaic Window", new[]{
-                new RequirementConfig("Iron",10), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
+                new RequirementConfig("Iron",2), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
             },"","building"),
 
             // 51.
             new RelicRegistration("M_ArchedWindowMozaic","Valkyrie Mosaic Window", new[]{
-                new RequirementConfig("Iron",10), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
+                new RequirementConfig("Iron",2), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
             },"","building"),
 
             // 52.
             new RelicRegistration("M_ArchedWindowGreen","Green Arched Window", new[]{
-                new RequirementConfig("Iron",10), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
+                new RequirementConfig("Iron",2), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
             },"","building"),
 
             // 53.
             new RelicRegistration("M_ArchedWindowPurple","Purple Arched Window", new[]{
-                new RequirementConfig("Iron",10), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
+                new RequirementConfig("Iron",2), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
             },"","building"),
 
             // 54.
             new RelicRegistration("M_ArchedWindowPurpleM","Purple Mosaic Arched Window", new[]{
-                new RequirementConfig("Iron",10), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
+                new RequirementConfig("Iron",2), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
             },"","building"),
 
             // 55.
             new RelicRegistration("M_ArchedWindowRedM","Red Mosaic Arched Window", new[]{
-                new RequirementConfig("Iron",10), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
+                new RequirementConfig("Iron",2), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
             },"","building"),
 
             // 56.
             new RelicRegistration("M_ArchedWindowRed","Red Arched Window", new[]{
-                new RequirementConfig("Iron",10), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
+                new RequirementConfig("Iron",2), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
             },"","building"),
 
             // 57.
             new RelicRegistration("M_ArchedWindowBat","Bat Arched Window", new[]{
-                new RequirementConfig("Iron",10), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
+                new RequirementConfig("Iron",2), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
             },"","building"),
 
             // 58.
             new RelicRegistration("M_ElfMozaic","Elf Stained Glass Window", new[]{
-                new RequirementConfig("Iron",10), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
+                new RequirementConfig("Iron",2), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
             },"","building"),
 
             // 59.
             new RelicRegistration("M_WolfMozaic","Wolf Stained Glass Window", new[]{
-                new RequirementConfig("Iron",10), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
+                new RequirementConfig("Iron",2), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
             },"","building"),
 
             // 60.
             new RelicRegistration("M_ArchedWindowC","Arched Stained Glass Window", new[]{
-                new RequirementConfig("Iron",10), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
+                new RequirementConfig("Iron",2), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
             },"","building"),
 
             // 61.
             new RelicRegistration("M_Window_1","H-Pattern Window I", new[]{
-                new RequirementConfig("Iron",10), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
+                new RequirementConfig("Iron",2), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
             },"","building"),
 
             // 62.
             new RelicRegistration("M_Window_2","H-Pattern Window II", new[]{
-                new RequirementConfig("Iron",10), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
+                new RequirementConfig("Iron",2), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
             },"","building"),
 
             // 63.
             new RelicRegistration("M_Window_3","H-Pattern Window III", new[]{
-                new RequirementConfig("Iron",10), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
+                new RequirementConfig("Iron",2), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
             },"","building"),
 
             // 64.
             new RelicRegistration("M_Window_2x1","2×1 Window", new[]{
-                new RequirementConfig("Iron",10), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
+                new RequirementConfig("Wood",4), new RequirementConfig("Stone",4)
             },"","building"),
 
             // 65.
             new RelicRegistration("M_Window_2x2","2×2 Window", new[]{
-                new RequirementConfig("Iron",10), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
+                new RequirementConfig("Wood",4), new RequirementConfig("Stone",4)
             },"","building"),
 
             // 66.
             new RelicRegistration("M_Window2x2","Sunflower 2×2 Window", new[]{
-                new RequirementConfig("Iron",10), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
+                new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
             },"","building"),
 
             // 67.
             new RelicRegistration("M_WoodFrame_Rose_Window","Rosewood Window", new[]{
-                new RequirementConfig("Iron",10), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
+                new RequirementConfig("Iron",2), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
             },"","building"),
 
             // 68.
             new RelicRegistration("M_Taker2x3","Underworld 2×3 Window", new[]{
-                new RequirementConfig("Iron",10), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
+                new RequirementConfig("Iron",2), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
             },"","building"),
 
             // 69.
             new RelicRegistration("M_MageMozaic","Mage Stained Glass Window", new[]{
-                new RequirementConfig("Iron",10), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
+                new RequirementConfig("Iron",2), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
             },"","building"),
 
             // 70.
             new RelicRegistration("M_Mage_Round_Window_Mozaic","Mage Round Stained Glass Window", new[]{
-                new RequirementConfig("Iron",10), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
+                new RequirementConfig("Iron",2), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
+            },"","building"),
+
+            // 71.
+            new RelicRegistration("M_Round_Church_Window","Round Church Window", new[]{
+                new RequirementConfig("Iron",2), new RequirementConfig("Wood",4), new RequirementConfig("Crystal",4)
+            },"","building"),
+
+            // ################# SWAMP BIOME ###################
+
+            // 72.
+            new RelicRegistration("M_ArchedWindow_Swamp_2x2","Arched Window Swamp 2x2", new[]{
+                new RequirementConfig("Iron",1), new RequirementConfig("Wood",4), new RequirementConfig("Stone",4)
+            },"","building"),
+            
+            // 73.
+            new RelicRegistration("M_ArchedWindow_SwampWraith_2x2","Arched Window Wraith from Swamp 2x2", new[]{
+                new RequirementConfig("Iron",1), new RequirementConfig("Wood",4), new RequirementConfig("Stone",4)
+            },"","building"),
+
+            // 74.
+             new RelicRegistration("M_ArchedWindow_SwampWraith_2x3","Arched Window Wraith from Swamp 2x3", new[]{
+                new RequirementConfig("Iron",1), new RequirementConfig("Wood",4), new RequirementConfig("Stone",4)
+            },"","building"),
+
+
+            // 75.
+            new RelicRegistration("M_Trellis","Moonforged Trellis", new[]{
+                new RequirementConfig("Wood",4), new RequirementConfig("Raspberry",4)
             },"","building")
         };
+
+        public static void InitConfig(ConfigFile cfg)
+        {
+            // Each can be changed by user to any hammer category name they like
+            FurnitureCategoryConfig = RelicConfigManager.AddEntry(cfg, "Categories", "FurnitureCategory",
+                "Moonforged Furniture", "Hammer tab name for all Moonforged furniture pieces.");
+
+            BuildingCategoryConfig = RelicConfigManager.AddEntry(cfg, "Categories", "BuildingCategory",
+                "Moonforged Building", "Hammer tab name for all Moonforged building pieces.");
+
+            ClutterCategoryConfig = RelicConfigManager.AddEntry(cfg, "Categories", "ClutterCategory",
+                "Moonforged Clutter", "Hammer tab name for all Moonforged clutter pieces.");
+
+            StatuesCategoryConfig = RelicConfigManager.AddEntry(cfg, "Categories", "StatuesCategory",
+                "Moonforged Statues", "Hammer tab name for all Moonforged statue pieces.");
+        }
 
         public static IEnumerable<string> GetAllCategories() =>
             AllRegistrations.Select(r => CategoryToTab(r.Category)).Distinct();
@@ -403,10 +453,10 @@ namespace Moonforged.BuildPieces
         private static string CategoryToTab(string category) =>
             category.ToLower() switch
             {
-                "statue" => "Moonforged Statues",
-                "clutter" => "Moonforged Clutter",
-                "building" => "Moonforged Building",
-                "furniture" => "Moonforged Furniture",
+                "statue" => StatuesCategoryConfig != null ? StatuesCategoryConfig.Value : "Moonforged Statues",
+                "clutter" => ClutterCategoryConfig != null ? ClutterCategoryConfig.Value : "Moonforged Clutter",
+                "building" => BuildingCategoryConfig != null ? BuildingCategoryConfig.Value : "Moonforged Building",
+                "furniture" => FurnitureCategoryConfig != null ? FurnitureCategoryConfig.Value : "Moonforged Furniture",
                 _ => category
             };
 
@@ -415,7 +465,7 @@ namespace Moonforged.BuildPieces
             if (wasAlreadyRegistered) return;
             foreach (var reg in AllRegistrations)
                 RegisterRelic(bundle, reg);
-            wasAlreadyRegistered = true; // HOTFIX preserved
+            wasAlreadyRegistered = true;
         }
 
         private static void RegisterRelic(AssetBundle bundle, RelicRegistration reg)
@@ -442,44 +492,63 @@ namespace Moonforged.BuildPieces
 
             string n = reg.PrefabName.ToLowerInvariant();
 
+            // ---- Window detection moved ABOVE SFX/VFX block ----
+            bool isWindow = false;
+            if (reg.DisplayName != null && reg.DisplayName.ToLower().Contains("window"))
+                isWindow = true;
+            if (reg.PrefabName.ToLower().Contains("mozaic"))
+                isWindow = true;
+
+            // ---- Type detection ----
             HashSet<string> ceramic = new()
             {
                 "M_teapot","M_cup1","M_justcup1","M_justplate1",
                 "M_bigplate","M_AsianTeaPot","M_AsianTeaCup",
-                "M_AsianTeaPotLid"
+                "M_AsianTeaPotLid","M_ChineseVase"
             };
 
             bool isCeramic = ceramic.Contains(reg.PrefabName);
             bool isRug = n.Contains("rug") || n.Contains("carpet");
             bool isLamp = n.Contains("lamp") || n.Contains("lantern") || n.Contains("light");
-            bool isTrackOrTrain = n.Contains("track") || n.Contains("train");
+            bool isCannon = n.Contains("cannon");
+            bool isBenchOrBin = n.Contains("bench") || n.Contains("bin");
 
+            // ---- SFX/VFX FIXED LOGIC ----
             if (isCeramic)
             {
+                vfxPlace = ZNetScene.instance?.GetPrefab("vfx_Place_crystal");
                 sfxPlace = ZNetScene.instance?.GetPrefab("sfx_build_hammer_crystal");
                 destroySFX = ZNetScene.instance?.GetPrefab("sfx_clay_pot_break");
             }
             else if (isRug)
             {
+                vfxPlace = ZNetScene.instance?.GetPrefab("vfx_Place_wood");
                 sfxPlace = ZNetScene.instance?.GetPrefab("sfx_build_hammer_wood");
                 destroyVFX = ZNetScene.instance?.GetPrefab("vfx_destroyed");
                 destroySFX = ZNetScene.instance?.GetPrefab("sfx_wood_break");
             }
-            else if (isLamp || isTrackOrTrain)
+            else if (isLamp || isCannon || isBenchOrBin)
             {
                 vfxPlace = ZNetScene.instance?.GetPrefab("vfx_Place_stone");
                 sfxPlace = ZNetScene.instance?.GetPrefab("sfx_build_hammer_metal");
                 destroyVFX = ZNetScene.instance?.GetPrefab("vfx_destroyed");
                 destroySFX = ZNetScene.instance?.GetPrefab("sfx_metal_blocked");
             }
+            else if (isWindow)
+            {
+                vfxPlace = ZNetScene.instance?.GetPrefab("vfx_Place_crystal");
+                sfxPlace = ZNetScene.instance?.GetPrefab("sfx_build_hammer_crystal");
+                destroySFX = ZNetScene.instance?.GetPrefab("sfx_clay_pot_break");
+            }
             else
             {
-                vfxPlace = ZNetScene.instance?.GetPrefab("vfx_Place_stone");
-                sfxPlace = ZNetScene.instance?.GetPrefab("sfx_build_hammer_stone");
+                vfxPlace = ZNetScene.instance?.GetPrefab("vfx_Place_wood");
+                sfxPlace = ZNetScene.instance?.GetPrefab("sfx_build_hammer_wood");
                 destroyVFX = ZNetScene.instance?.GetPrefab("vfx_destroyed");
-                destroySFX = ZNetScene.instance?.GetPrefab("sfx_rock_destroyed");
+                destroySFX = ZNetScene.instance?.GetPrefab("sfx_wood_break");
             }
 
+            // Apply effects
             var placeFX = new EffectList();
             var placeList = new List<EffectList.EffectData>();
             if (vfxPlace != null) placeList.Add(new EffectList.EffectData { m_prefab = vfxPlace });
@@ -504,25 +573,15 @@ namespace Moonforged.BuildPieces
             Sprite icon = bundle.LoadAsset<Sprite>(reg.PrefabName);
             if (icon != null)
                 piece.m_icon = icon;
-            else
-                Debug.LogWarning($"[MoonforgedBuildPieces] Icon not found for prefab: {reg.PrefabName}");
 
-            // Attach LampColorSwitcher to all lamps
+            // Add LampColorSwitcher only to lamps
             if (isLamp && prefab.GetComponent<LampColorSwitcher>() == null)
-            {
                 prefab.AddComponent<LampColorSwitcher>();
-            }
 
-            // Force proper shadows for all window prefabs
-            bool isWindow = reg.DisplayName != null && reg.DisplayName.ToLowerInvariant().Contains("window");
-            if (!isWindow)
-            {
-                isWindow = reg.PrefabName != null && reg.PrefabName.ToLowerInvariant().Contains("mozaic");
-            }
+            // Shadow settings for windows
             if (isWindow)
             {
-                Renderer[] renderers = prefab.GetComponentsInChildren<Renderer>(true);
-                foreach (Renderer r in renderers)
+                foreach (Renderer r in prefab.GetComponentsInChildren<Renderer>(true))
                 {
                     if (!r) continue;
                     r.shadowCastingMode = ShadowCastingMode.On;
@@ -530,11 +589,16 @@ namespace Moonforged.BuildPieces
                 }
             }
 
+            // ---- AUTO-FORGE FOR IRON ITEMS ----
+            bool requiresIron = reg.Requirements.Any(r => r.Item.ToLower() == "iron");
+            string craftingStation = requiresIron ? "forge" : "piece_workbench";
+
+            // ---- PIECE CONFIG ----
             var config = new PieceConfig
             {
                 PieceTable = "Hammer",
                 Category = CategoryToTab(reg.Category),
-                CraftingStation = "piece_workbench",
+                CraftingStation = craftingStation,
                 Requirements = reg.Requirements
             };
 

@@ -14,7 +14,7 @@ namespace Moonforged.BuildPieces
     {
         public const string PluginGUID = "Moonforged.BuildPieces";
         public const string PluginName = "Moonforged Build Pieces";
-        public const string PluginVersion = "1.0.0";
+        public const string PluginVersion = "1.0.2";
 
         private AssetBundle relicsBundle;
 
@@ -35,6 +35,9 @@ namespace Moonforged.BuildPieces
         {
             new Harmony("moonforged.buildpieces.scalingdebug").PatchAll();
 
+            // INIT CONFIG SYSTEM
+            RelicConfigManager.Init(PluginGUID, Config);
+
             // DEBUG: PRINT ALL EMBEDDED RESOURCES SO WE KNOW THE REAL NAME
             foreach (var res in Assembly.GetExecutingAssembly().GetManifestResourceNames())
                 Logger.LogInfo("FOUND RESOURCE: " + res);
@@ -51,6 +54,9 @@ namespace Moonforged.BuildPieces
             }
 
             TrackAllPrefabsInBundle(relicsBundle);
+
+            // Initialize configurable hammer categories (furniture/building/clutter/statues)
+            RelicRegistrar.InitConfig(Config);
 
             foreach (var category in RelicRegistrar.GetAllCategories())
                 PieceManager.Instance.AddPieceCategory(category);
