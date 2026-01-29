@@ -5,15 +5,15 @@
 Build a richer, more vibrant Viking home!
 
 
-## New pieces : 1.0.2
+## New pieces : 1.0.4
 
 
-![Preview Banner](https://raw.githubusercontent.com/Caen007/MoonforgedBuildPieces/main/img/160126.png)
+![Preview Banner](https://raw.githubusercontent.com/Caen007/MoonforgedBuildPieces/main/img/thrones.png)
 
 
 ## Moonforged Build Pieces ##
 
-- adds over 70 handcrafted decorative items to Valheim.
+- adds over 90 handcrafted decorative items to Valheim.
 
 Bring life, color, and atmosphere to your settlement with rugs, mosaics, stained-glass windows, lamps, porcelain sets, benches, cannons, and more.
 
@@ -21,14 +21,36 @@ Bring life, color, and atmosphere to your settlement with rugs, mosaics, stained
 
 ## 🪓 What You Get
 
-- 70+ handcrafted decorative build pieces
-- Rugs • Windows • Mosaics • Lamps • Porcelain • Benches • Cannons
+- 90+ handcrafted decorative build pieces
+- Rugs • Windows • Mosaics • Lamps • Porcelain • Benches • Cannons • Thrones • Banners.
 - Quality textures and Moonforged artistic style
 - You can edit the config file to move these build pieces in any hammer menu you would like to
 
 Easy to use — just install and build!
 
 ---
+## Boss, Miniboss and Vendor Banners
+
+![Preview Banner](https://raw.githubusercontent.com/Caen007/MoonforgedBuildPieces/main/img/Banners.png)![Preview Banner](https://raw.githubusercontent.com/Caen007/MoonforgedBuildPieces/main/img/Banners1.png)
+![Preview Banner](https://raw.githubusercontent.com/Caen007/MoonforgedBuildPieces/main/img/Banners2.png)
+
+
+-They react to the wind and you can also see them at night.
+
+## Troll Rugs
+
+- Added multiple Troll Hide rug variants, finally bringing long-missing Troll Hide rugs to the game
+
+![Preview Banner](https://raw.githubusercontent.com/Caen007/MoonforgedBuildPieces/main/img/troll.png)
+
+
+## Thrones.
+
+![Preview Banner](https://raw.githubusercontent.com/Caen007/MoonforgedBuildPieces/main/img/thrones.png)
+
+---
+
+# 📸 Screenshots
 
 ## Rugs for stairs ##
 
@@ -75,10 +97,6 @@ Perfect for pirate bases, naval fortifications, or castles.
 - Pirate Ship Cannon
 - 12-Pounder Cannon
 - Cannonball stacks
-
----
-
-## 📸 Screenshots
 
 ### Arched Stained Windows
 ![New](https://raw.githubusercontent.com/Caen007/MoonforgedBuildPieces/main/img/ArchedWindowPieces_I.png)
