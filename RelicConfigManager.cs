@@ -3,26 +3,18 @@
 namespace Moonforged.BuildPieces
 {
     /// <summary>
-    /// Manages configuration entries for relics, using ConfigSync to allow sync across server/client.
+    /// Manages local BepInEx configuration entries for Moonforged Build Pieces.
     /// </summary>
     public static class RelicConfigManager
     {
-        private static ConfigSync _configSync;
-
         public static void Init(string modName, ConfigFile config)
         {
-            _configSync = new ConfigSync(modName);
+            // Local config only. No server-side config sync is used by this mod.
         }
 
-        public static SyncedConfigEntry<T> AddEntry<T>(ConfigFile cfg, string section, string key, T defaultValue, string description)
+        public static ConfigEntry<T> AddEntry<T>(ConfigFile cfg, string section, string key, T defaultValue, string description)
         {
-            var entry = cfg.Bind(section, key, defaultValue, description);
-            return _configSync.AddConfigEntry(entry);
-        }
-
-        public static void SetServerSync(bool enabled)
-        {
-            _configSync?.SetSourceOfTruth(enabled);
+            return cfg.Bind(section, key, defaultValue, description);
         }
     }
 }

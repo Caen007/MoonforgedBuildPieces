@@ -1,10 +1,9 @@
-﻿using System.Reflection;
+﻿using System.Collections;
 using System.IO;
+using System.Reflection;
 using BepInEx;
 using UnityEngine;
 using Jotunn.Managers;
-using HarmonyLib;
-using System.Collections.Generic;
 
 namespace Moonforged.BuildPieces
 {
@@ -14,46 +13,27 @@ namespace Moonforged.BuildPieces
     {
         public const string PluginGUID = "Moonforged.BuildPieces";
         public const string PluginName = "Moonforged Build Pieces";
-        public const string PluginVersion = "1.0.2";
+        public const string PluginVersion = "1.0.6";
 
         private AssetBundle relicsBundle;
 
-        private static readonly List<GameObject> placedObjects = new();
-
-        public static void TrackAllPrefabsInBundle(AssetBundle bundle)
-        {
-            foreach (var prefab in bundle.LoadAllAssets<GameObject>())
-            {
-                if (prefab != null && prefab.GetComponent<PlacementWatcher>() == null)
-                {
-                    prefab.AddComponent<PlacementWatcher>().RegisterList = placedObjects;
-                }
-            }
-        }
 
         private void Awake()
         {
-            new Harmony("moonforged.buildpieces.scalingdebug").PatchAll();
-
             // INIT CONFIG SYSTEM
             RelicConfigManager.Init(PluginGUID, Config);
 
-            // DEBUG: PRINT ALL EMBEDDED RESOURCES SO WE KNOW THE REAL NAME
-            foreach (var res in Assembly.GetExecutingAssembly().GetManifestResourceNames())
-                Logger.LogInfo("FOUND RESOURCE: " + res);
 
-            // FIXED: use the REAL embedded resource name found in the log
-            string resourcePath = "Moonforged.BuildPieces.mbp";
+            string resourcePath = GetPlatformBundleResourcePath();
 
             relicsBundle = EmbeddedAssetBundleLoader.LoadBundle(resourcePath);
 
             if (relicsBundle == null)
             {
-                Logger.LogError("Failed to load embedded AssetBundle.");
+                Logger.LogError("Failed to load embedded AssetBundle: " + resourcePath);
                 return;
             }
 
-            TrackAllPrefabsInBundle(relicsBundle);
 
             // Initialize configurable hammer categories (furniture/building/clutter/statues)
             RelicRegistrar.InitConfig(Config);
@@ -61,10 +41,40 @@ namespace Moonforged.BuildPieces
             foreach (var category in RelicRegistrar.GetAllCategories())
                 PieceManager.Instance.AddPieceCategory(category);
 
-            PrefabManager.OnPrefabsRegistered += () =>
+            PrefabManager.OnPrefabsRegistered += OnPrefabsRegistered;
+        }
+
+        private static string GetPlatformBundleResourcePath()
+        {
+            switch (Application.platform)
             {
-                RelicRegistrar.RegisterAllRelics(relicsBundle);
-            };
+                case RuntimePlatform.OSXPlayer:
+                case RuntimePlatform.OSXEditor:
+                    return "Moonforged.BuildPieces.mbp_mac";
+
+                default:
+                    return "Moonforged.BuildPieces.mbp_windows";
+            }
+        }
+
+        private void OnDestroy()
+        {
+            PrefabManager.OnPrefabsRegistered -= OnPrefabsRegistered;
+        }
+
+        private void OnPrefabsRegistered()
+        {
+            StartCoroutine(DelayedRegister(relicsBundle));
+        }
+
+        private IEnumerator DelayedRegister(AssetBundle bundle)
+        {
+            while (ZNetScene.instance == null)
+            {
+                yield return null;
+            }
+
+            RelicRegistrar.RegisterAllRelics(bundle);
         }
     }
 
@@ -80,9 +90,12 @@ namespace Moonforged.BuildPieces
                     Debug.LogError("AssetBundle resource not found: " + resourcePath);
                     return null;
                 }
-                byte[] buffer = new byte[stream.Length];
-                stream.Read(buffer, 0, buffer.Length);
-                return AssetBundle.LoadFromMemory(buffer);
+
+                using (var memoryStream = new MemoryStream())
+                {
+                    stream.CopyTo(memoryStream);
+                    return AssetBundle.LoadFromMemory(memoryStream.ToArray());
+                }
             }
         }
     }

@@ -8,10 +8,12 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="mbp" />
+    <None Remove="mbp_mac" />
+    <None Remove="mbp_windows" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="mbp" />
+    <EmbeddedResource Include="mbp_mac" />
+    <EmbeddedResource Include="mbp_windows" />
   </ItemGroup>
 
   <ItemGroup>

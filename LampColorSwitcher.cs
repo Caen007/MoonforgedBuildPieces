@@ -81,7 +81,7 @@ namespace Moonforged.BuildPieces
                 }
             }
 
-            index = zdo.GetInt(ZDO_KEY, index);
+            index = NormalizeIndex(zdo.GetInt(ZDO_KEY, index));
 
             ApplyState();
         }
@@ -120,12 +120,21 @@ namespace Moonforged.BuildPieces
 
         private void RPC_SetLampState(long sender, int newState)
         {
-            index = newState;
+            index = NormalizeIndex(newState);
             ApplyState();
+        }
+
+        private int NormalizeIndex(int value)
+        {
+            if (value == OFF_INDEX) return OFF_INDEX;
+            if (value < 0 || value >= colors.Length) return 0;
+            return value;
         }
 
         private void ApplyState()
         {
+            index = NormalizeIndex(index);
+
             if (index == OFF_INDEX)
             {
                 // lights OFF
@@ -200,6 +209,8 @@ namespace Moonforged.BuildPieces
 
         public string GetHoverText()
         {
+            index = NormalizeIndex(index);
+
             if (index == OFF_INDEX)
                 return "[E] Turn On";
 
