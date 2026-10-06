@@ -33,3 +33,13 @@ v1.0.6
     - Window Stone Arch 1m
     - Window Stone Arch round 2m
 
+v2.0.0
+
+Moonforged Banner Collection was split from the original Moonforged Build Pieces mod, which has now been separated into three standalone mods:
+
+- Moonforged Build Pieces – Includes new carved and runed building pieces, along with stained-glass pieces.
+- Moonforged Lights and Decor – Includes the rugs, furniture, lamps, and other decorations from the original Moonforged Build Pieces mod.
+- Moonforged Banner Collection – Includes all banners from the original mod, plus new Deep North biome and boss banners.
+
+- Added  carved and runed build pieces , and cleand up some stained glass pieces.
+

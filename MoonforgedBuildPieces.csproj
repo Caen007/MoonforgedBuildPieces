@@ -8,18 +8,18 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="mbp_mac" />
+    <Compile Remove="NewFolder\**" />
+    <EmbeddedResource Remove="NewFolder\**" />
+    <None Remove="NewFolder\**" />
+  </ItemGroup>
+  <ItemGroup>
     <None Remove="mbp_windows" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="mbp_mac" />
     <EmbeddedResource Include="mbp_windows" />
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="0Harmony">
-      <HintPath>Libs\0Harmony.dll</HintPath>
-    </Reference>
     <Reference Include="assembly_valheim">
       <HintPath>Libs\assembly_valheim.dll</HintPath>
     </Reference>
@@ -29,37 +29,20 @@
     <Reference Include="Jotunn">
       <HintPath>Libs\Jotunn.dll</HintPath>
     </Reference>
-    <Reference Include="ServerSync">
-      <HintPath>Libs\ServerSync.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.TextMeshPro">
-      <HintPath>Libs\Unity.TextMeshPro.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEngine">
       <HintPath>Libs\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AssetBundleModule">
       <HintPath>Libs\UnityEngine.AssetBundleModule.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.AudioModule">
-      <HintPath>Libs\UnityEngine.AudioModule.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>Libs\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.ImageConversionModule">
-      <HintPath>Libs\UnityEngine.ImageConversionModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.PhysicsModule">
-      <HintPath>Libs\UnityEngine.PhysicsModule.dll</HintPath>
-    </Reference>
-
     <Reference Include="UnityEngine.ParticleSystemModule">
       <HintPath>Libs\UnityEngine.ParticleSystemModule.dll</HintPath>
     </Reference>
-
-    <Reference Include="UnityEngine.UI">
-      <HintPath>Libs\UnityEngine.UI.dll</HintPath>
+    <Reference Include="UnityEngine.PhysicsModule">
+      <HintPath>Libs\UnityEngine.PhysicsModule.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>

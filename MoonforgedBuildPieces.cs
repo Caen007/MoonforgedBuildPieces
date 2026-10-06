@@ -2,8 +2,8 @@
 using System.IO;
 using System.Reflection;
 using BepInEx;
-using UnityEngine;
 using Jotunn.Managers;
+using UnityEngine;
 
 namespace Moonforged.BuildPieces
 {
@@ -13,33 +13,29 @@ namespace Moonforged.BuildPieces
     {
         public const string PluginGUID = "Moonforged.BuildPieces";
         public const string PluginName = "Moonforged Build Pieces";
-        public const string PluginVersion = "1.0.6";
+        public const string PluginVersion = "2.0.0";
 
-        private AssetBundle relicsBundle;
-
+        private AssetBundle buildPiecesBundle;
 
         private void Awake()
         {
-            // INIT CONFIG SYSTEM
             RelicConfigManager.Init(PluginGUID, Config);
+            RelicRegistrar.InitConfig(Config);
 
+            if (RelicRegistrar.AllRegistrations.Count == 0)
+            {
+                Logger.LogInfo("Moonforged Build Pieces template loaded. No build pieces are registered yet.");
+                return;
+            }
 
             string resourcePath = GetPlatformBundleResourcePath();
+            buildPiecesBundle = EmbeddedAssetBundleLoader.LoadBundle(resourcePath);
 
-            relicsBundle = EmbeddedAssetBundleLoader.LoadBundle(resourcePath);
-
-            if (relicsBundle == null)
+            if (buildPiecesBundle == null)
             {
                 Logger.LogError("Failed to load embedded AssetBundle: " + resourcePath);
                 return;
             }
-
-
-            // Initialize configurable hammer categories (furniture/building/clutter/statues)
-            RelicRegistrar.InitConfig(Config);
-
-            foreach (var category in RelicRegistrar.GetAllCategories())
-                PieceManager.Instance.AddPieceCategory(category);
 
             PrefabManager.OnPrefabsRegistered += OnPrefabsRegistered;
         }
@@ -64,7 +60,7 @@ namespace Moonforged.BuildPieces
 
         private void OnPrefabsRegistered()
         {
-            StartCoroutine(DelayedRegister(relicsBundle));
+            StartCoroutine(DelayedRegister(buildPiecesBundle));
         }
 
         private IEnumerator DelayedRegister(AssetBundle bundle)

@@ -2,9 +2,7 @@
 
 namespace Moonforged.BuildPieces
 {
-    /// <summary>
-    /// Manages local BepInEx configuration entries for Moonforged Build Pieces.
-    /// </summary>
+
     public static class RelicConfigManager
     {
         public static void Init(string modName, ConfigFile config)
